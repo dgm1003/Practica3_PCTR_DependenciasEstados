@@ -46,6 +46,11 @@ public class Parque implements IParque{
 	@Override
 	public synchronized void salirDelParque(String puerta){
 
+		// Si no hay entradas por esa puerta, inicializamos
+		if (contadoresPersonasPuerta.get(puerta) == null){
+			contadoresPersonasPuerta.put(puerta, 0);
+		}
+		
 		comprobarAntesDeSalir();
 				
 		
