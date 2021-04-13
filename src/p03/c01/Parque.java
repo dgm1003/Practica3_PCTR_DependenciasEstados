@@ -44,8 +44,22 @@ public class Parque implements IParque{
 	
 	
 	@Override
-	public void salirDelParque(String puerta){
-		//TODO
+	public synchronized void salirDelParque(String puerta){
+
+		comprobarAntesDeSalir();
+				
+		
+		// Aumentamos el contador total y el individual
+		contadorPersonasTotales--;		
+		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
+		
+		// Imprimimos el estado del parque
+		imprimirInfo(puerta, "Salida");
+					
+		checkInvariante();
+		
+		notifyAll();
+		
 	}
 	
 	private void imprimirInfo (String puerta, String movimiento){
@@ -75,20 +89,23 @@ public class Parque implements IParque{
 	}
 
 	protected void comprobarAntesDeEntrar(){	// TODO
-		if (contadorPersonasTotales==maxPersonas){
+		while (contadorPersonasTotales==maxPersonas){
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
 	protected void comprobarAntesDeSalir(){		// TODO
-		//
-		// TODO
-		//
+		while (contadorPersonasTotales==0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 
