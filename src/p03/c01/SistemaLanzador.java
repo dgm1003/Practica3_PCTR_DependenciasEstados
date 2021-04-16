@@ -1,6 +1,13 @@
 package src.p03.c01;
 
 public class SistemaLanzador {
+	/**
+	 * El main recibe dos argumentos de entrada, args[0] que será el numero de puertas del parque y arg[1] correspondiente al
+	 * máximo de personas que puede haber en el interior del parque.
+	 * 
+	 * @param args 
+	 */
+	
 	public static void main(String[] args) {
 		
 		IParque parque = new Parque(Integer.parseInt(args[1]));

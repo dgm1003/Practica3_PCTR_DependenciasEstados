@@ -26,6 +26,7 @@ public class Parque implements IParque{
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
+		//Nos aseguramos que hay espacio dentro del parque para que puedan entrar
 		comprobarAntesDeEntrar();
 				
 		
@@ -35,9 +36,11 @@ public class Parque implements IParque{
 		
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
-					
+		
+		//Verificamos el invariante
 		checkInvariante();
 		
+		//Notificamos a todos los hilos de la entrada de alguien en el parque
 		notifyAll();
 		
 	}
@@ -51,6 +54,7 @@ public class Parque implements IParque{
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
+		//Nos aseguramos que hay personas dentro del parque para que puedan salir
 		comprobarAntesDeSalir();
 				
 		
@@ -60,9 +64,11 @@ public class Parque implements IParque{
 		
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Salida");
-					
+		
+		//Verificamos el invariante
 		checkInvariante();
 		
+		//Notificamos a todos los hilos de la salida de alguien en el parque
 		notifyAll();
 		
 	}
@@ -93,7 +99,8 @@ public class Parque implements IParque{
 		assert contadorPersonasTotales >= 0 : "INV: no puede haber un valor negativo de personas en el parque";
 	}
 
-	protected void comprobarAntesDeEntrar(){	// TODO
+	protected void comprobarAntesDeEntrar(){	
+		//El hilo se mantendrá en espera hasta que haya espacio libre en el parque
 		while (contadorPersonasTotales==maxPersonas){
 			try {
 				wait();
@@ -103,7 +110,8 @@ public class Parque implements IParque{
 		}
 	}
 
-	protected void comprobarAntesDeSalir(){		// TODO
+	protected void comprobarAntesDeSalir(){
+		//El hilo se mantendrá en espera hasta que haya alguien en el parque
 		while (contadorPersonasTotales==0) {
 			try {
 				wait();
